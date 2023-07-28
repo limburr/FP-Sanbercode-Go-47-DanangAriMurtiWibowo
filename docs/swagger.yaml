@@ -1,0 +1,512 @@
+definitions:
+  controller.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  controller.RegisterInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  controller.categoryInput:
+    properties:
+      name:
+        type: string
+    type: object
+  controller.commentInput:
+    properties:
+      content:
+        type: string
+      user_id:
+        description: PostId string `json:"post_id"`
+        type: integer
+    type: object
+  controller.postInput:
+    properties:
+      body:
+        type: string
+      category_id:
+        type: integer
+      title:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.Category:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Comment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      post_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+      username:
+        type: string
+    type: object
+  models.Post:
+    properties:
+      body:
+        type: string
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+paths:
+  /categories:
+    get:
+      description: Get a list of Category.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Category'
+            type: array
+      summary: Get all Category.
+      tags:
+      - Category
+    post:
+      description: Creating a new Category.
+      parameters:
+      - description: the body to create a new Category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.categoryInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      security:
+      - BearerToken: []
+      summary: Create New Category.
+      tags:
+      - Category
+  /categories/{id}:
+    delete:
+      description: Delete a Category by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Category.
+      tags:
+      - Category
+    get:
+      description: Get an Category by id.
+      parameters:
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      summary: Get Category.
+      tags:
+      - Category
+    patch:
+      description: Update Category by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update post
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.categoryInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Category'
+      security:
+      - BearerToken: []
+      summary: Update Category.
+      tags:
+      - Category
+  /comments/{id}:
+    delete:
+      description: Delete a Comment by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Comment id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Comment.
+      tags:
+      - Comment
+    get:
+      description: Get a Comment by id.
+      parameters:
+      - description: Comment id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Get Comment.
+      tags:
+      - Comment
+    patch:
+      description: Update Comment by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Comment id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update comment
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.commentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update Comment.
+      tags:
+      - Comment
+  /login:
+    post:
+      description: Logging in to get jwt token to access admin or user api by roles
+      parameters:
+      - description: the body to login a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LoginInput'
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login as a user.
+      tags:
+      - Auth
+  /post/{id}:
+    patch:
+      description: Update Post by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Post id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update post
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.postInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Update Post.
+      tags:
+      - Post
+  /posts:
+    get:
+      description: Get a list of Post.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Post'
+            type: array
+      summary: Get all Post.
+      tags:
+      - Post
+    post:
+      description: Creating a new Post.
+      parameters:
+      - description: the body to create a new Post
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.postInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      security:
+      - BearerToken: []
+      summary: Create New Post.
+      tags:
+      - Post
+  /posts/{id}:
+    delete:
+      description: Delete a Post by id.
+      parameters:
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Post id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Post.
+      tags:
+      - Post
+    get:
+      description: Get an Post by id.
+      parameters:
+      - description: Post id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+      summary: Get Post.
+      tags:
+      - Post
+  /posts/{id}/comments:
+    get:
+      description: Get a list of post Comment.
+      parameters:
+      - description: Post id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Comment'
+            type: array
+      summary: Get all post Comment.
+      tags:
+      - Comment
+    post:
+      description: Creating a new Comment.
+      parameters:
+      - description: the body to create a new Comment
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.commentInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Comment id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      security:
+      - BearerToken: []
+      summary: Create New Comment.
+      tags:
+      - Comment
+  /register:
+    post:
+      description: registering a user from public access.
+      parameters:
+      - description: the body to regsiter a user
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a user
+      tags:
+      - Auth
+swagger: "2.0"
